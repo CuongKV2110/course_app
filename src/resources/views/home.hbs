@@ -1,0 +1,19 @@
+<div class="mt-4">
+    <div class="row">
+        {{#each listCourse}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card mt-4">
+                <a href="/item/{{this.type}}">
+                <img style="max-width: 100%; height: 260px;" src="{{this.image}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU';" class="card-img-top" alt="..."></a>
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <h5 class="card-title">{{this.type}}</h5>
+                    <a href="#" class="btn btn-primary" style="background-color: gray;">Detail</a>
+                    <a href="{{this._id}}/edit" class="btn btn-primary" style="background-color: gray;">Edit</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
