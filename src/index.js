@@ -7,6 +7,7 @@ const port = 3000;
 const app = express();
 const db = require('./config/db');
 const swaggerJsDoc = require('./config/swagger/swagger');
+const methodOverride = require('method-override');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,6 +23,8 @@ app.use(
         extended: true,
     }),
 );
+
+app.use(methodOverride('_method'));
 
 app.engine('hbs', handlebars.engine({
     extname: '.hbs',

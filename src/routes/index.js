@@ -1,12 +1,9 @@
 const siteRouter = require('./site');
-const meRouter = require('./me');
-const courseController = require('../app/controllers/CourseController');
+const courseRouter = require('./course');
 
 function route(app) {
-    
-    app.use('/me', meRouter);
+    app.use('/course', courseRouter);
     app.use('/', siteRouter);
-    app.get('/course', courseController.index);
 }
 
 module.exports = route;
