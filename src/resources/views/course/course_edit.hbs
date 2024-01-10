@@ -1,6 +1,6 @@
 <div class="mt-4">
     <h1>Update Course</h1>
-    <form method="PUT" action="/course/{{course._id}}?_method=PUT">
+    <form method="POST" action="/course/{{course._id}}?_method=PUT">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Ten Khoa hoc</label>
             <input type="text" class="form-control" value="{{course.name}}" name="name">

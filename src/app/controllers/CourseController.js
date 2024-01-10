@@ -7,10 +7,9 @@ class CourseController {
         Course.find({})
             .then(
                 listCourse => {
-                    console.log(listCourse),
-                        res.render('home', {
-                            listCourse: multipleMongooseToObject(listCourse)
-                        });
+                    res.render('home', {
+                        listCourse: multipleMongooseToObject(listCourse)
+                    });
                 }
             ).catch(next);
     }
@@ -43,8 +42,39 @@ class CourseController {
             .then(
                 () => res.redirect('/course')
             )
+            .catch(console.log('Update Error'));
+    }
+
+    //api APP
+    async getListCourse(req, res, next) {
+        Course.find({})
+            .then(
+                listCourse => {
+                    res.send(multipleMongooseToObject(listCourse));
+                }
+            ).catch(next);
+    }
+
+    detailCourse(req, res, next) {
+        Course.findById(req.params.id)
+            .then(
+                course => {
+                    res.send(course);
+                }
+            )
             .catch(next);
     }
+
+    updateCourse(req, res, next) {
+        console.log('Update');
+        Course.updateOne({ _id: req.params.id }, req.body)
+            .then(
+                () => res.send('success')
+            )
+            .catch(console.log('APP update Error'));
+    }
+
+
 }
 
 module.exports = new CourseController();
