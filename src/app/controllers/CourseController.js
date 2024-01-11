@@ -37,7 +37,7 @@ class CourseController {
     }
 
     update(req, res, next) {
-
+        console.log(req.body);
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(
                 () => res.redirect('/course')
@@ -56,6 +56,7 @@ class CourseController {
     }
 
     detailCourse(req, res, next) {
+        console.log(req.body);
         Course.findById(req.params.id)
             .then(
                 course => {
@@ -65,13 +66,34 @@ class CourseController {
             .catch(next);
     }
 
-    updateCourse(req, res, next) {
+     updateCourse(req, res, next) {
         console.log('Update');
+        console.log(req.params);
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(
                 () => res.send('success')
             )
             .catch(console.log('APP update Error'));
+    }
+
+    async createCourse(req, res, next) {
+        try {
+            console.log(req.params);
+            console.log(req.body);
+            const course = new Course({
+                type: req.body.type,
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image,
+            });
+            console.log(course);
+            await course.save();
+            res.send('success');
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).send('Internal Server Error');
+        }
     }
 
 

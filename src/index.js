@@ -25,6 +25,7 @@ app.use(
 );
 
 app.use(methodOverride('_method'));
+app.use(express.json());
 
 app.engine('hbs', handlebars.engine({
     extname: '.hbs',
