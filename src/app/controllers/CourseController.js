@@ -4,12 +4,13 @@ const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongo
 class CourseController {
 
     async index(req, res, next) {
-        Course.find({})
+        Course.find({ $or: [{ deleted: null }, { deleted: { $ne: true } }] })
             .then(
                 listCourse => {
-                    res.render('home', {
-                        listCourse: multipleMongooseToObject(listCourse)
-                    });
+                    // res.render('home', {
+                    //     listCourse: multipleMongooseToObject(listCourse)
+                    // });
+                    res.send(listCourse)
                 }
             ).catch(next);
     }
@@ -45,9 +46,11 @@ class CourseController {
             .catch(console.log('Update Error'));
     }
 
+
+
     //api APP
     async getListCourse(req, res, next) {
-        Course.find({})
+        Course.find({ $or: [{ deleted: null }, { deleted: { $ne: true } }] })
             .then(
                 listCourse => {
                     res.send(multipleMongooseToObject(listCourse));
@@ -66,7 +69,7 @@ class CourseController {
             .catch(next);
     }
 
-     updateCourse(req, res, next) {
+    updateCourse(req, res, next) {
         console.log('Update');
         console.log(req.params);
         Course.updateOne({ _id: req.params.id }, req.body)
@@ -94,6 +97,14 @@ class CourseController {
             console.error('Error:', error);
             res.status(500).send('Internal Server Error');
         }
+    }
+
+    deleteCourse(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(
+                () => console.log('Deleted'), res.send('success')
+            )
+            .catch(next);
     }
 
 
