@@ -3,14 +3,24 @@
         {{#each listCourse}}
         <div class="col-sm-6 col-lg-4" style="margin-bottom: 10px;">
             <div class="card mt-4">
-                <a href="/item/{{this.type}}">
-                <img style="max-width: 100%; height: 260px;" src="{{this.image}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU';" class="card-img-top" alt="..."></a>
-                
+                <a href="/course/{{this._id}}">
+                    <img style="max-width: 100%; height: 260px;" src="{{this.image}}"
+                        onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU';"
+                        class="card-img-top" alt="..."></a>
+
                 <div class="card-body">
-                    <h5 class="card-title">{{this.name}}</h5>
-                    <h5 class="card-title">{{this.description}}</h5>
-                    <a href="/course/{{this._id}}" class="btn btn-primary" style="background-color: gray;">Detail</a>
-                    <a href="/course/{{this._id}}/edit" class="btn btn-primary" style="background-color: gray;">Edit</a>
+                    <h3 class="card-title"
+                        style="display: -webkit-box; font-weight: bold; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                        {{this.name}}
+                    </h3>
+                    <h6 class="card-title"
+                        style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                        {{this.description}}
+                    </h6>
+                    <div class="d-flex justify-content-between">
+                        <h3 style="font-weight: bold;">{{this.price}} $</h1>
+                            <a href="/course/buy" class="btn btn-primary" style="background-color: gray;">Buy Now</a>
+                    </div>
                 </div>
             </div>
         </div>

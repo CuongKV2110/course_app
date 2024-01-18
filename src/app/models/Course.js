@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var mongooseDelete = require('mongoose-delete');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const Course = new Schema({
@@ -8,7 +8,12 @@ const Course = new Schema({
     description: String,
     image: String,
     price: String,
-})
+    userPost: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
 Course.plugin(mongooseDelete, {
     overrideMethods: 'all',

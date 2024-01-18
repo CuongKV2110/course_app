@@ -1,0 +1,33 @@
+<div class="mb-5, mt-4">
+    <h1>Create New Course</h1>
+     <form method="POST" action="/me/create_course">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name of Course</label>
+            <input type="text" class="form-control" name="name">
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+            <textarea class="form-control"  name="description"></textarea>
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Image</label>
+            <input type="text" class="form-control"  name="image">
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Type of Course</label>
+            <input type="text" class="form-control"  name="type">
+
+        </div><div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            <input type="number" class="form-control" pattern="[0-9]+" name="price">
+
+        </div>
+</div>
+
+
+<button type="submit" class="btn btn-primary" style="margin-bottom: 30px;">Create Course</button>
+</form>
+</div>

@@ -1,18 +1,16 @@
 const Course = require('../models/Course')
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongoose');
-
+const UserInfo = require('../models/UserInfo');
 class CourseController {
-
     async index(req, res, next) {
         Course.find({ $or: [{ deleted: null }, { deleted: { $ne: true } }] })
-            .then(
-                listCourse => {
-                    // res.render('home', {
-                    //     listCourse: multipleMongooseToObject(listCourse)
-                    // });
-                    res.send(listCourse)
-                }
-            ).catch(next);
+            .sort({ createdAt: -1 }) 
+            .then(listCourse => {
+                res.render('home', {
+                    listCourse: multipleMongooseToObject(listCourse)
+                });
+            })
+            .catch(next);
     }
 
     detail(req, res, next) {
@@ -35,6 +33,11 @@ class CourseController {
                 }
             )
             .catch(next);
+    }
+
+    course_create(req, res, next) {
+        console.log('hehe');
+        res.render('course/course_create');
     }
 
     update(req, res, next) {

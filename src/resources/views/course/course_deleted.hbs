@@ -1,0 +1,84 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Index</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {{#each listCourse}}
+        <tr>
+            <th scope="row">{{ sum @index 1}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.type}}</td>
+            <td>{{this.price}} $</td>
+            <td>
+                <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                <a class="btn-delete" data-bs-toggle="modal" data-bs-target="#delete-modal" data-id="{{this._id}}" onclick="confirmDelete('{{this._id}}')">Force Delete</a>
+            </td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="5" class="text-center">
+                Trash empty
+            </td>
+        </tr>
+        {{/each}}
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirrm delete item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa vĩnh viễn bản ghi này không ???
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             <button type="button" class="btn btn-primary" id="btn-delete-modal" onclick="confirmDeleteModal('{{this._id}}', '{{this.name}}')">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="delete-form" method="POST" action=""></form>
+<form name="restore-form" method="POST" action=""></form>
+
+
+<script>
+    function confirmDeleteModal(itemId, itemName) {
+        // Lưu ID của phần tử cần xóa vào biến idItem
+        var idItem = itemId;
+
+        // Hiển thị xác nhận xóa bằng cửa sổ thông báo trình duyệt
+        var confirmation = window.confirm("Are you sure you want to permanently delete the course with ID " + idItem + " - " + itemName + "?");
+
+        if (confirmation) {
+            // Thực hiện xóa dữ liệu hoặc gọi hàm xóa tương ứng với idItem
+            console.log('Xóa vĩnh viễn phần tử có ID:', idItem);
+
+            // Thêm một input hidden vào form để gửi ID cần xóa
+            var deleteForm = document.forms['delete-form'];
+            var hiddenInput = document.createElement("input");
+            hiddenInput.setAttribute("type", "hidden");
+            hiddenInput.setAttribute("name", "itemId");
+            hiddenInput.setAttribute("value", idItem);
+            document.forms["delete-form"].appendChild(hiddenInput);
+
+            // Submit the form for deletion
+            deleteForm.action = '/me/' + idItem + '/force?_method=DELETE';  // Đã sửa đường dẫn ở đây
+            deleteForm.submit();
+        } else {
+            // Người dùng đã hủy bỏ xóa
+            console.log('Người dùng đã hủy bỏ xóa.');
+        }
+    }
+</script>
